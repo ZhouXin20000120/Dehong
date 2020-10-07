@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hopu.mapper.ContractProdutMapper">
+
+    <resultMap id="contractPro-factory" type="com.hopu.entity.ContractPro" autoMapping="true">
+        <id column="CONTRACT_PRODUCT_ID" property="CONTRACT_PRODUCT_ID"></id>
+        <collection property="factory_c" autoMapping="true" ofType="com.hopu.entity.Factory_c">
+            <id column="factory_id" property="factory_id"></id>
+        </collection>
+
+        <collection property="contract_c" autoMapping="true" ofType="com.hopu.entity.ContractC">
+            <id column="contract_Id" property="contract_Id"></id>
+        </collection>
+    </resultMap>
+
+    <select id="findContractPro" resultMap="contractPro-factory">
+        select * from CONTRACT_PRODUCT_C,Factory_c,CONTRACT_C where CONTRACT_PRODUCT_C.factory_id = Factory_c.factory_id and CONTRACT_C.CONTRACT_ID = CONTRACT_PRODUCT_C.CONTRACT_ID and CONTRACT_C.CONTRACT_ID =  #{contract_Id} and Factory_c.state = '2'
+    </select>
+
+    <select id="findbyContractPro" resultMap="contractPro-factory">
+        select * from CONTRACT_PRODUCT_C where CONTRACT_PRODUCT_ID = #{CONTRACT_PRODUCT_ID}
+    </select>
+
+    <insert id="addContractPro" parameterType="com.hopu.entity.ContractPro">
+         insert into CONTRACT_PRODUCT_C(CONTRACT_PRODUCT_ID,CONTRACT_ID,FACTORY_ID,product_No,product_Image,cnumber,packing_Unit,loading_Rate,box_Num,price,order_No,product_Desc,Amount) values (#{CONTRACT_PRODUCT_ID},#{contract_Id},#{factory_id},#{product_No},#{product_Image},#{cnumber},#{packing_Unit},#{loading_Rate},#{box_Num},#{price},#{order_No},#{product_Desc},#{amount})
+
+    </insert>
+
+
+
+    <delete id="deleteContractPro" parameterType="com.hopu.entity.ContractPro">
+        delete from CONTRACT_PRODUCT_C where CONTRACT_PRODUCT_ID = #{CONTRACT_PRODUCT_ID}
+    </delete>
+
+    <update id="updateContractPro" parameterType="com.hopu.entity.ContractPro">
+        update CONTRACT_PRODUCT_C set FACTORY_ID = #{factory_id},PRODUCT_NO = #{product_No},PRODUCT_IMAGE = #{product_Image},CNUMBER = #{cnumber},PACKING_UNIT = #{packing_Unit},LOADING_RATE = #{loading_Rate},BOX_NUM = #{box_Num},PRICE = #{price},ORDER_NO = #{order_No},PRODUCT_DESC = #{product_Desc} where CONTRACT_PRODUCT_ID = #{CONTRACT_PRODUCT_ID}
+    </update>
+</mapper>

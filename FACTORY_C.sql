@@ -1,0 +1,73 @@
+/*
+ Navicat Premium Data Transfer
+
+ Source Server         : Oracle
+ Source Server Type    : Oracle
+ Source Server Version : 110200
+ Source Host           : 123.57.247.171:1521
+ Source Schema         : A2018103726
+
+ Target Server Type    : Oracle
+ Target Server Version : 110200
+ File Encoding         : 65001
+
+ Date: 20/09/2020 18:25:45
+*/
+
+
+-- ----------------------------
+-- Table structure for FACTORY_C
+-- ----------------------------
+DROP TABLE "A2018103726"."FACTORY_C";
+CREATE TABLE "A2018103726"."FACTORY_C" (
+  "FACTORY_ID" VARCHAR2(40 BYTE) NOT NULL,
+  "FULL_NAME" VARCHAR2(255 BYTE),
+  "FACTORY_NAME" VARCHAR2(50 BYTE),
+  "CONTACTOR" VARCHAR2(30 BYTE),
+  "PHONE" VARCHAR2(20 BYTE),
+  "MOBILE" VARCHAR2(20 BYTE),
+  "FAX" VARCHAR2(20 BYTE),
+  "CNOTE" CLOB,
+  "CTYPE" NUMBER,
+  "STATE" CHAR(1 BYTE),
+  "INSPECTOR" VARCHAR2(30 BYTE),
+  "ORDER_NO" NUMBER,
+  "CREATE_BY" VARCHAR2(255 BYTE),
+  "CREATE_DEPT" VARCHAR2(40 BYTE),
+  "CREATE_TIME" DATE
+)
+TABLESPACE "USERS"
+LOGGING
+NOCOMPRESS
+PCTFREE 10
+INITRANS 1
+STORAGE (
+  INITIAL 65536 
+  NEXT 1048576 
+  MINEXTENTS 1
+  MAXEXTENTS 2147483645
+  BUFFER_POOL DEFAULT
+)
+PARALLEL 1
+NOCACHE
+DISABLE ROW MOVEMENT
+;
+COMMENT ON COLUMN "A2018103726"."FACTORY_C"."CTYPE" IS 'SYS_CODE_B 0103';
+COMMENT ON COLUMN "A2018103726"."FACTORY_C"."STATE" IS '1正常2停止';
+
+-- ----------------------------
+-- Records of FACTORY_C
+-- ----------------------------
+INSERT INTO "A2018103726"."FACTORY_C" VALUES ('1', '祁县宏毅厂', '宏毅', '杰诚', '0354-5041999', '111111', NULL, NULL, NULL, '1', '张三', NULL, '张麻子', NULL, TO_DATE('2020-09-20 13:31:22', 'SYYYY-MM-DD HH24:MI:SS'));
+INSERT INTO "A2018103726"."FACTORY_C" VALUES ('2', '祁县晶晨厂', '晶晨', '晨希', '0354-5271999', NULL, NULL, NULL, NULL, '2', '李四', NULL, '师爷', NULL, TO_DATE('2020-09-20 13:31:43', 'SYYYY-MM-DD HH24:MI:SS'));
+INSERT INTO "A2018103726"."FACTORY_C" VALUES ('3', '祁县浩丰厂', '浩丰', '建生', '0354-524099', NULL, NULL, NULL, NULL, '1', '王五', NULL, '县长夫人', NULL, TO_DATE('2020-09-01 13:31:54', 'SYYYY-MM-DD HH24:MI:SS'));
+
+-- ----------------------------
+-- Primary Key structure for table FACTORY_C
+-- ----------------------------
+ALTER TABLE "A2018103726"."FACTORY_C" ADD CONSTRAINT "SYS_C0011088" PRIMARY KEY ("FACTORY_ID");
+
+-- ----------------------------
+-- Checks structure for table FACTORY_C
+-- ----------------------------
+ALTER TABLE "A2018103726"."FACTORY_C" ADD CONSTRAINT "SYS_C0011087" CHECK ("FACTORY_ID" IS NOT NULL) NOT DEFERRABLE INITIALLY IMMEDIATE NORELY VALIDATE;

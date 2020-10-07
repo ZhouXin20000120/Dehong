@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hopu.mapper.ExtCproductMapper">
+    <resultMap id="extcproduct-factory-contractpro" type="com.hopu.entity.ExtCproduct" autoMapping="true">
+        <id column="EXT_CPRODUCT_ID" property="EXT_CPRODUCT_ID"></id>
+
+        <collection property="contract_product_c" autoMapping="true" ofType="com.hopu.entity.ContractPro">
+            <id column="CONTRACT_PRODUCT_ID" property="CONTRACT_PRODUCT_ID"></id>
+        </collection>
+
+    </resultMap>
+
+
+    <select id="findextpro" resultMap="extcproduct-factory-contractpro">
+            select * from EXT_CPRODUCT_C,CONTRACT_PRODUCT_C where EXT_CPRODUCT_C.CONTRACT_PRODUCT_ID = CONTRACT_PRODUCT_C.CONTRACT_PRODUCT_ID and CONTRACT_PRODUCT_C.CONTRACT_PRODUCT_ID = #{CONTRACT_PRODUCT_ID}
+    </select>
+
+    <insert id="addextpro" parameterType="com.hopu.entity.ExtCproduct">
+        insert into EXT_CPRODUCT_C (EXT_CPRODUCT_ID, CONTRACT_PRODUCT_ID, FACTORY_ID, FACTORY_NAME, CTYPE, PRODUCT_NO, PRODUCT_IMAGE, PRODUCT_DESC, CNUMBER, PACKING_UNIT, PRICE, AMOUNT, PRODUCT_REQUEST, ORDER_NO) values (#{EXT_CPRODUCT_ID},#{CONTRACT_PRODUCT_ID},#{factory_Id},#{factory_Name},#{ctype},#{product_No},#{product_Image},#{product_Desc},#{cnumber},#{packing_Unit},#{price},#{amount},#{product_Request},#{order_No})
+    </insert>
+
+    <select id="findbyextpro" resultMap="extcproduct-factory-contractpro">
+            select * from EXT_CPRODUCT_C where EXT_CPRODUCT_ID = #{EXT_CPRODUCT_ID}
+    </select>
+
+    <update id="updateextpro" parameterType="com.hopu.entity.ExtCproduct">
+        update EXT_CPRODUCT_C set factory_Id = #{factory_Id},factory_Name = #{factory_Name},ctype = #{ctype},product_No = #{product_No},product_Image = #{product_Image},product_Desc = #{product_Desc},cnumber = #{cnumber},packing_Unit = #{packing_Unit},price = #{price},amount = #{amount},product_Request = #{product_Request},order_No = #{order_No} where EXT_CPRODUCT_ID = #{EXT_CPRODUCT_ID}
+    </update>
+
+    <delete id="deleteextpro" parameterType="com.hopu.entity.ExtCproduct">
+        delete from EXT_CPRODUCT_C where EXT_CPRODUCT_ID = #{EXT_CPRODUCT_ID}
+    </delete>
+
+
+    <delete id="deleteextproandcontract" parameterType="com.hopu.entity.ExtCproduct">
+
+        delete from EXT_CPRODUCT_C where  CONTRACT_PRODUCT_ID = #{CONTRACT_PRODUCT_ID}
+    </delete>
+
+</mapper>

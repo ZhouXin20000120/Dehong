@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hopu.mapper.ExportMapper">
+    <resultMap id="export-factory" type="com.hopu.entity.Export" autoMapping="true">
+        <id column="export_Prodct_Id" property="EXPORT_PRODUCT_ID"></id>
+        <collection property="factory_c" autoMapping="true" ofType="com.hopu.entity.Factory_c">
+            <id column="factory_id" property="factory_id"></id>
+        </collection>
+    </resultMap>
+
+    <select id="findexport" resultMap="export-factory">
+        select * from EXPORT_PRODUCT_C,Factory_c where EXPORT_PRODUCT_C.factory_id = Factory_c.factory_id
+    </select>
+
+    <select id="findbyexport" resultMap="export-factory">
+        select * from EXPORT_PRODUCT_C where EXPORT_PRODUCT_ID = #{EXPORT_PRODUCT_ID}
+    </select>
+
+    <insert id="addexport" parameterType="com.hopu.entity.Export">
+         insert into EXPORT_PRODUCT_C(EXPORT_PRODUCT_ID,factory_id,product_No,product_Image,cnumber,packing_Unit,loading_Rate,box_Num,price,order_No,product_Desc) values (#{EXPORT_PRODUCT_ID},#{factory_id},#{product_No},#{product_Image},#{cnumber},#{packing_Unit},#{loading_Rate},#{box_Num},#{price},#{order_No},#{product_Desc})
+
+    </insert>
+
+    <delete id="deleteexport" parameterType="com.hopu.entity.Export">
+        delete from EXPORT_PRODUCT_C where EXPORT_PRODUCT_ID = #{EXPORT_PRODUCT_ID}
+    </delete>
+
+    <update id="updateexport" parameterType="com.hopu.entity.Export">
+        update EXPORT_PRODUCT_C set FACTORY_ID = #{factory_Id},PRODUCT_NO = #{product_No},PRODUCT_IMAGE = #{product_Image},CNUMBER = #{cnumber},PACKING_UNIT = #{packing_Unit},LOADING_RATE = #{loading_Rate},BOX_NUM = #{box_Num},PRICE = #{price},ORDER_NO = #{order_No},PRODUCT_DESC = #{product_Desc} where EXPORTPRODUCTID = #{EXPORTPRODUCTID}
+    </update>
+
+</mapper>

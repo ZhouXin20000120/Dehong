@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hopu.mapper.Factory_cMapper">
+
+    <!-- 查询所有 -->
+    <select id="findfactoryAll" resultType="com.hopu.entity.Factory_c">
+        select * from Factory_c
+    </select>
+
+    <!-- 根据id查询 -->
+    <select id="findbyfactory_id" resultType="com.hopu.entity.Factory_c">
+        select * from Factory_c where factory_id = #{factory_id}
+    </select>
+
+    <!-- 添加工厂 -->
+    <insert id="addfactory_c" parameterType="com.hopu.entity.Factory_c">
+        insert into Factory_c(factory_id,full_name,factory_name,contactor,phone,mobile,fax,cnote,inspector,order_no,state) values (#{factory_id},#{full_name},#{factory_name},#{contactor},#{phone},#{mobile},#{fax},#{cnote},#{inspector},#{order_no},1)
+    </insert>
+
+    <!-- 修改 -->
+    <update id="updatefactory_c"  parameterType="com.hopu.entity.Factory_c">
+        update Factory_c set full_name =#{full_name},factory_name=#{factory_name},contactor=#{contactor},phone=#{phone},mobile=#{mobile},
+        fax=#{fax},inspector=#{inspector},order_no=#{order_no},cnote=#{cnote} where factory_id = #{factory_id}
+    </update>
+
+    <update id="updateastate"  parameterType="com.hopu.entity.Factory_c">
+        update Factory_c set state = #{state} where factory_id = #{factory_id}
+    </update>
+
+    <delete id="deletebyid" parameterType="com.hopu.entity.Factory_c">
+        delete from Factory_c where factory_id = #{factory_id}
+    </delete>
+</mapper>

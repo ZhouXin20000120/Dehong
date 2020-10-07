@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hopu.mapper.ContractCMapper">
+
+    <select id="findtract" resultType="com.hopu.entity.ContractC">
+
+        select * from CONTRACT_C
+
+    </select>
+
+    <select id="findbycid" resultType="com.hopu.entity.ContractC">
+
+        select * from CONTRACT_C where contract_Id = #{contract_Id}
+
+    </select>
+
+    <insert id="addcontract" parameterType="com.hopu.entity.ContractC">
+        INSERT INTO CONTRACT_C(contract_Id,offeror,contract_No,signing_Date,input_By,check_By,inspector,total_Amount,request,custom_Name,ship_Time,import_Num,delivery_Period,remark,print_Style,state)values(#{contract_Id},#{offeror},#{contract_No},#{signing_Date},#{input_By},#{check_By},#{inspector},#{total_Amount},#{request},#{custom_Name},#{ship_Time},#{import_Num},#{delivery_Period},#{remark},#{print_Style},#{state})
+    </insert>
+
+    <update id="updatecontract" parameterType="com.hopu.entity.ContractC">
+        update CONTRACT_C set offeror = #{offeror},contract_No = #{contract_No},signing_Date = #{signing_Date},input_By = #{input_By},check_By = #{check_By},inspector = #{inspector},total_Amount = #{total_Amount},request = #{request},custom_Name = #{custom_Name},ship_Time = #{ship_Time},import_Num = #{import_Num},delivery_Period = #{delivery_Period},remark = #{remark},print_Style = #{print_Style} where contract_Id = #{contract_Id}
+    </update>
+
+    <update id="updateconstate" parameterType="com.hopu.entity.ContractC">
+        update CONTRACT_C set state=#{state}  where contract_Id = #{contract_Id}
+     </update>
+
+    <delete id="deletebycid" parameterType="com.hopu.entity.ContractC">
+        delete from CONTRACT_C where contract_Id = #{contract_Id}
+    </delete>
+
+    <select id="selectnumber" resultType="com.hopu.entity.ContractC">
+        select
+  (select count(*) from contract_product_c
+  where contract_id=c.contract_id)  as cpnum,
+  (select count(*) from ext_cproduct_c
+          where contract_product_id in (select contract_product_id from contract_product_c where contract_id=c.contract_id)
+      ) as extnum,
+  (
+      nvl((select sum(cnumber*price) as cptotal from contract_product_c
+      where contract_id =c.contract_id),0)
+      +
+      nvl(
+      (select sum(cnumber*price) as exttotal from ext_cproduct_c
+       where contract_product_id in (select contract_product_id from contract_product_c where contract_id=c.contract_id))
+       ,0)
+  ) as total_amount,
+c.*
+
+from contract_c c
+    </select>
+
+
+
+</mapper>
